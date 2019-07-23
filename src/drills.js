@@ -22,16 +22,18 @@ const knexInstance = knex({
 
 //drill 2
 // function paginateItems(pageNumber) {
-
+//const limit = 6  
+//const offset = limit * (page - 1)
 //   knexInstance('shopping_list')
 //     .select('name', 'price', 'category')    
-//     .limit(pageNumber)   
+//     .limit(limit)
+//     .offset(offset)   
 //     .then(result => {
 //       console.log(result);
 //     });
 // }
 
-// paginateItems(6);
+// paginateItems(3);
 
 //drill 3
 // function itemsBydate(daysAgo) {
@@ -49,6 +51,7 @@ const knexInstance = knex({
 
 // itemsBydate(20);
 
+//drill 4
 function totalCost() {
 
   knexInstance('shopping_list')
