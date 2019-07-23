@@ -52,15 +52,15 @@ const knexInstance = knex({
 // itemsBydate(20);
 
 //drill 4
-function totalCost() {
+// function totalCost() {
 
-  knexInstance('shopping_list')
-    .select('category')
-    .sum('price AS totalCost')
-    .groupBy('category')
-    .then(result => {
-      console.log(result);
-    });      
+//   knexInstance('shopping_list')
+//     .select('category')
+//     .sum('price AS totalCost')
+//     .groupBy('category')
+//     .then(result => {
+//       console.log(result);
+//     });      
    
-}
-totalCost();
+// }
+// totalCost();
