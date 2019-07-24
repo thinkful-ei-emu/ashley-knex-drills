@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS shopping_list (
-    list__id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     price decimal(12,2) NOT NULL,
     date_added TIMESTAMP DEFAULT now() NOT NULL,
