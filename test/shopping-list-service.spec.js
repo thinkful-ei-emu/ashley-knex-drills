@@ -7,52 +7,68 @@ describe('Shopping service object', function() {
   let db;
   let testItems = [
    
-    {id: 1,
+    {
+      list_id: 1,
+      name: 'First test item!',
       date_added: new Date('2029-01-22T16:28:32.615Z'),
-      name:'Fish tricks', 
-      price: 13.10, 
-      category: 'Lunch', 
-      checked: false, 
-      
+      price: '12.00',
+      category: 'Main'
     },
-    {id: 2,
+    {
+      list_id: 2,
+      name: 'Second test item!',
       date_added: new Date('2100-05-22T16:28:32.615Z'),
-      name:'Steak', 
-      price: 25.10, 
-      category: 'Main', 
-      checked: false, 
-     
+      price: '21.00',
+      category: 'Snack'
     },
-    {id: 3,
+    {
+      list_id: 3,
+      name: 'Third test item!',
       date_added: new Date('1919-12-22T16:28:32.615Z'),
-      name:'Tofurkey', 
-      price: 11, 
-      category: 'Breakfast', 
-      checked: true, 
-      
-    }
+      price: '3.00',
+      category: 'Lunch'
+    },
+    {
+      list_id: 4,
+      name: 'Third test item!',
+      date_added: new Date('1919-12-22T16:28:32.615Z'),
+      price: '0.99',
+      category: 'Breakfast'
+    },
   ];
+
+  
   before(() => {
     db = knex({
       client: 'pg',
       connection: process.env.TEST_DB_URL,
     });
   });
+
+
+  before(() => db('shopping_list').truncate());  
+
+  afterEach(() => db('shopping_list').truncate());
+
+  after(() => db.destroy());
+
   context(`Given 'shopping_list' has data`, () => {
-    before(() => {
+    beforeEach(() => {
       return db 
         .into('shopping_list')
         .insert(testItems);
     });
-    it('getAllItems resolves all items from \'shopping_list\' table', () => {
+    it('getAllItems() resolves all items from \'shopping_list\' table', () => {
+      const expectedItems = testItems.map(item => ({
+        ...item,
+        checked: false,
+      }))
       // test that ShoppingService.getAllItems gets data from table
       return ShoppingService.getAllItems(db)
         .then(actual => {
-          expect(actual).to.eql(testItems);
+          expect(actual).to.eql(expectedItems);
         });
     });
-  
-
   });
 
   context('Given \'shopping_list\' has no data', () => {
@@ -64,15 +80,12 @@ describe('Shopping service object', function() {
     });
   }); 
   
-  before(() => db('shopping_list').truncate());
-  
-  
+
+ 
+
   
 
-  afterEach(() => db('shopping_list').truncate());
-  
-
-  after(() => db.destroy());
+ 
   
   
  
